@@ -5,19 +5,19 @@ import PropTypes from 'prop-types';
 const modalRoot = document.querySelector('#modal-root');
 
 export function Modal({ onClose, children }) {
+  const handleClickEsc = e => {
+    if (e.code === 'Escape') {
+      onClose();
+    }
+  };
+
   useEffect(() => {
     window.addEventListener('keydown', handleClickEsc);
 
     return () => {
       window.removeEventListener('keydown', handleClickEsc);
     };
-  }, []);
-
-  const handleClickEsc = e => {
-    if (e.code === 'Escape') {
-      onClose();
-    }
-  };
+  }, [handleClickEsc, onClose]);
 
   const handelClickBackdrop = e => {
     if (e.currentTarget === e.target) {
